@@ -42,7 +42,6 @@ def new_conversation(request, item_pk):
 @login_required
 def inbox(request):
     conversations = Conversation.objects.filter(members__in=[request.user.id])
-
     return render(request, 'conversation/inbox.html', {
         'conversations': conversations
     })
@@ -71,3 +70,11 @@ def detail(request, pk):
         'conversation': conversation,
         'form': form
     })
+
+@login_required
+def delete_convo(request,pk):
+    conversation = get_object_or_404(Conversation, pk=pk)
+
+    conversation.delete()
+    
+    return redirect('conversation:inbox') 

@@ -4,10 +4,16 @@
 <h1 class="mb-6 text-3xl">Inbox</h1>
 
 <div class="space-y-6">
+    {%if not  conversations%}
+    <p class="text-gray-700 leading-relaxed">your inbox is Empty</p>
+    {%endif%}
     {%for conversation in conversations%}
-    <a href="{%url 'conversation:detail' conversation.id %}" >
-        <div class="p-6 flex bg-gray-100 rounded-xl">
-            <div class="pr-6">
+    
+    <div class="flex bg-gray-100 rounded-xl justify-between items-center">
+        <a href="{%url 'conversation:detail' conversation.id %}" >
+            <div class="p-6 flex bg-gray-100 rounded-xl ">
+
+            <div class="pr-6 ">
                 <img src="{{conversation.item.image.url}}" class="w-20 rounded-xl">
             </div>
             <div>
@@ -21,10 +27,12 @@
 
             {%endfor%}
             </div>
-
-        </div> 
-
-    </a>
+            </div>
+        </a>
+        <a href="{%url 'conversation:delete' conversation.id%}" class="m-6 px-2 py-1 text-lg font-semibold bg-red-500 text-white rounded-xl">
+            Delete
+        </a>
+    </div> 
     {%endfor%}
 </div>
 {%endblock%}
